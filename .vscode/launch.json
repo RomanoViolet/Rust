@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Launch Rust Debugger",
+      "program": "${workspaceFolder}/backend/target/debug/backend",
+      "args": [],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Show Code Coverage",
+      "type": "chrome",
+      "request": "launch",
+      // "file": "file:///localhost:3000/backend/target/debug/coverage/index.html",
+      "file": "./backend/target/debug/coverage/index.html"
+    }
+  ]
+}

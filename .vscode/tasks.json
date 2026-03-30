@@ -1,0 +1,131 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Echo Environment Variables",
+      "type": "shell",
+      "linux": {
+        "command": "echo",
+        "args": [
+          "${workspaceFolder}"
+        ]
+      },
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Rust Watch",
+      "type": "shell",
+      "linux": {
+        "command": "cargo",
+        "args": [
+          "watch",
+          "-q",
+          "-c",
+          "-w",
+          "src",
+          "-x",
+          "run"
+        ]
+      },
+      "problemMatcher": [],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+    },
+    {
+      "label": "Clean Old Build Artifacts",
+      "type": "shell",
+      "linux": {
+        "command": "${workspaceFolder}/.devcontainer/Tools/PostStartScripts/cleanup.sh",
+        "args": [
+          "${workspaceFolder}/backend"
+        ]
+      },
+      "problemMatcher": "$node-sass",
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+    },
+    {
+      "label": "Debug Build And Run",
+      "type": "shell",
+      "dependsOn": [
+        "Clean Old Build Artifacts"
+      ],
+      "linux": {
+        "command": "cargo",
+        "args": [
+          "run",
+          "RUST_BACKTRACE=1",
+        ]
+      },
+      "problemMatcher": "$node-sass",
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+    },
+    {
+      "label": "Rust All Unit Tests",
+      "type": "shell",
+      "linux": {
+        "command": "cargo",
+        "args": [
+          "test",
+        ]
+      },
+      "problemMatcher": [],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+    },
+    {
+      "label": "Run Code Coverage",
+      "type": "shell",
+      "problemMatcher": [],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "linux": {
+        "command": "${workspaceFolder}/.devcontainer/Tools/PostStartScripts/code-coverage.sh",
+        "args": [
+          "${workspaceFolder}/backend",
+        ]
+      },
+    },
+    {
+      "label": "Show Code Coverage",
+      "type": "shell",
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "linux": {
+        "command": "live-server",
+        "args": [
+          "--mount=/:${workspaceFolder}/backend/target/debug/coverage/"
+        ]
+      },
+    },
+    {
+      "label": "Run Quality Checks",
+      "type": "shell",
+      "problemMatcher": [],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "linux": {
+        "command": "${workspaceFolder}/.devcontainer/Tools/PostStartScripts/check-code-quality.sh",
+        "args": [
+          "${workspaceFolder}/backend"
+        ]
+      },
+    },
+  ]
+}

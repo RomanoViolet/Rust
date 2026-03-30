@@ -1,0 +1,78 @@
+{
+	"name": "RustTools-2026.04.01",
+	"image": "rusttools-2026.04.01",
+	"runArgs": [
+		"-u",
+		"ubuntu",
+		"--cap-add=SYS_PTRACE",
+		"--security-opt",
+		"seccomp=unconfined",
+		"--network=host"
+	],
+	"initializeCommand": [
+		"/usr/bin/env",
+		"bash",
+		"${localWorkspaceFolder}/.devcontainer/build_container.sh"
+	],
+	"updateRemoteUserUID": false,
+	"containerUser": "ubuntu",
+	"appPort": [
+		3000
+	],
+	"customizations": {
+		"postCreateCommand": [
+			"/bin/bash",
+			"-c",
+			"/workspaces/sw-architects-tools/BackEnd/.devcontainer/Tools/PostStartScripts/CodeInContainerStartScripts.sh"
+		],
+		"settings": {
+			"terminal.integrated.shell.linux": "/bin/bash"
+		},
+		"vscode": {
+			"extensions": [
+				"formulahendry.auto-close-tag",
+				"humao.rest-client",
+				"ritwickdey.LiveServer",
+				"vincaslt.highlight-matching-tag",
+				"byi8220.indented-block-highlighting",
+				"nabeelvalley.easyzoom",
+				"eamodio.gitlens",
+				"donjayamanne.githistory",
+				"gruntfuggly.todo-tree",
+				"mhutchie.git-graph",
+				"aaron-bond.better-comments",
+				"steoates.autoimport",
+				"stylemistake.auto-comment-blocks",
+				"rust-lang.rust-analyzer",
+				"JScearcy.rust-doc-viewer",
+				"ms-vscode.cpptools",
+				"vadimcn.vscode-lldb",
+				"rangav.vscode-thunder-client",
+				"GitHub.copilot",
+				"ryanluker.vscode-coverage-gutters",
+				"tamasfe.even-better-toml",
+				"fill-labs.dependi",
+				"BracketPairColorDLW.bracket-pair-color-dlw"
+			]
+		}
+	},
+	"remoteEnv": {
+		"KEYRING_BACKEND_DIR": "/host/.ssh/keyring_data"
+	},
+	"mounts": [
+		"type=bind,source=${localEnv:HOME}/.gitconfig,target=/host/.gitconfig",
+		"type=bind,source=${localEnv:HOME}/.ssh,target=/host/.ssh",
+		"type=volume,source=sw_arch_command_history,target=/command_history"
+	],
+	"postStartCommand": [
+		"/bin/bash",
+		".devcontainer/Tools/PostStartScripts/PostStart.sh",
+		"${localEnv:HOME}"
+	],
+	"postCreateCommand": [
+		"/bin/bash",
+		"-c",
+		".devcontainer/Tools/PostStartScripts/CodeInContainerStartScripts.sh",
+		"${localEnv:HOME}"
+	]
+}
